@@ -3,6 +3,11 @@ import { ArrowRightIcon } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { lusitana } from '@/app/ui/fonts';
 import Image from 'next/image';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Dashboard',
+};
 
 export default function Page() {
   return (
@@ -45,6 +50,7 @@ export default function Page() {
             height={760}
             className="block md:hidden"
             alt="Screenshots of the dashboard project showing mobile version"
+            priority  // For Loading Content Faster
           />
         </div>
       </div>
