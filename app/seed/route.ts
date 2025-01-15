@@ -1,8 +1,152 @@
 // import bcrypt from 'bcrypt';
-// import { db } from '@vercel/postgres';
+import { db } from '@vercel/postgres';
 // import { invoices, customers, revenue, users } from '../lib/placeholder-data';
 
-// const client = await db.connect();
+const client = await db.connect();
+
+async function seedHouses() {
+  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  await client.sql`
+    CREATE TABLE IF NOT EXISTS houses (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      house_number VARCHAR(10) NOT NULL,
+      house_owner VARCHAR(50) NULL,
+      house_tenants VARCHAR(50) NULL,
+      occupied BOOLEAN NOT NULL,
+      block_id UUID NOT NULL,
+      street_id UUID NOT NULL,
+      rt_id UUID NOT NULL,
+      rw_id UUID NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      created_by VARCHAR(50) NOT NULL,
+      updated_at TIMESTAMP DEFAULT NOW(),
+      updated_by VARCHAR(50) NOT NULL
+    );
+  `;
+}
+
+async function seedBlocks() {
+  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  await client.sql`
+    CREATE TABLE IF NOT EXISTS blocks (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      block_name VARCHAR(10) NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      created_by VARCHAR(50) NOT NULL,
+      updated_at TIMESTAMP DEFAULT NOW(),
+      updated_by VARCHAR(50) NOT NULL
+    );
+  `;
+}
+
+async function seedStreets() {
+  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  await client.sql`
+    CREATE TABLE IF NOT EXISTS streets (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      street_name VARCHAR(50) NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      created_by VARCHAR(50) NOT NULL,
+      updated_at TIMESTAMP DEFAULT NOW(),
+      updated_by VARCHAR(50) NOT NULL
+    );
+  `;
+}
+
+async function seedRukunTetangga() {
+  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  await client.sql`
+    CREATE TABLE IF NOT EXISTS rukun_tetangga (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      rt_number VARCHAR(2) NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      created_by VARCHAR(50) NOT NULL,
+      updated_at TIMESTAMP DEFAULT NOW(),
+      updated_by VARCHAR(50) NOT NULL
+    );
+  `;
+}
+
+async function seedGender() {
+  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  await client.sql`
+    CREATE TABLE IF NOT EXISTS gender (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      gender VARCHAR(2) NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      created_by VARCHAR(50) NOT NULL,
+      updated_at TIMESTAMP DEFAULT NOW(),
+      updated_by VARCHAR(50) NOT NULL
+    );
+  `;
+}
+
+async function seedEducation() {
+  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  await client.sql`
+    CREATE TABLE IF NOT EXISTS education (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      education VARCHAR(50) NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      created_by VARCHAR(50) NOT NULL,
+      updated_at TIMESTAMP DEFAULT NOW(),
+      updated_by VARCHAR(50) NOT NULL
+    );
+  `;
+}
+
+async function seedKB() {
+  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  await client.sql`
+    CREATE TABLE IF NOT EXISTS kb (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      kb_type VARCHAR(50) NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      created_by VARCHAR(50) NOT NULL,
+      updated_at TIMESTAMP DEFAULT NOW(),
+      updated_by VARCHAR(50) NOT NULL
+    );
+  `;
+}
+
+async function seedSHDK() {
+  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  await client.sql`
+    CREATE TABLE IF NOT EXISTS shdk (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      shdk_relative VARCHAR(50) NOT NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      created_by VARCHAR(50) NOT NULL,
+      updated_at TIMESTAMP DEFAULT NOW(),
+      updated_by VARCHAR(50) NOT NULL
+    );
+  `;
+}
+
+async function seedResidents() {
+  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  await client.sql`
+    CREATE TABLE IF NOT EXISTS residents (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      resident_name VARCHAR(255) NOT NULL,
+      dob DATE NULL,
+      nik_number VARCHAR(50) NULL,
+      kk_number VARCHAR(50) NULL,
+      akte_number VARCHAR(50) NULL,
+      bpjs_number VARCHAR(50) NULL,
+      mobile VARCHAR(50) NULL,
+      resident_status BOOLEAN NOT NULL,
+      shdk_id UUID NULL,
+      gender_id UUID NULL,
+      house_id UUID NULL,
+      education_id UUID NULL,
+      created_at TIMESTAMP DEFAULT NOW(),
+      created_by VARCHAR(50) NOT NULL,
+      updated_at TIMESTAMP DEFAULT NOW(),
+      updated_by VARCHAR(50) NOT NULL
+    );
+  `;
+}
 
 // async function seedUsers() {
 //   await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
