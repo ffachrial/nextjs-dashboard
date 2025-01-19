@@ -144,4 +144,367 @@ const revenue = [
   { month: 'Dec', revenue: 4800 },
 ];
 
-export { users, customers, invoices, revenue };
+// KV2
+const rukunTetangga = [
+  {
+    rt_number: '001',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    rt_number: '002',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    rt_number: '003',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    rt_number: '004',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    rt_number: '005',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+];
+
+const streets = [
+  {
+    street_name: 'Mawar',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Melati',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Dahlia',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Cempaka',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Anggrek',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Tulip',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Bakung',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Kenanga',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Akasia',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Merpati',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Kenari',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Camar',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Rajawali',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Gelatik',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Nuri',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Walet',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Garuda',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Mangga',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Nangka',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Durian',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Jeruk',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Salak',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    street_name: 'Kecapi',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+];
+
+const blocks = [
+  {
+    block_name: 'A',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'AB',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'AC',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'B',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'B RUKO',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'C',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'D',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'E',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'F',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'G',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'H',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'I',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'J',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'K',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'L',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'M',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'N',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'O',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'P',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'Q',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'R',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'S',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    block_name: 'T',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+];
+
+const educations = [
+  {
+    education_grade: 'TIDAK / BELUM SEKOLAH',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    education_grade: 'BELUM TAMAT SD/SEDERAJAT',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    education_grade: 'TAMAT SD / SEDERAJAT',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    education_grade: 'SLTP/SEDERAJAT',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    education_grade: 'SLTA / SEDERAJAT',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    education_grade: 'DIPLOMA I / II',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    education_grade: 'AKADEMI/ DIPLOMA III/S. MUDA',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    education_grade: 'DIPLOMA IV/ STRATA I',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    education_grade: 'STRATA II',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+  {
+    education_grade: 'STRATA III',
+    created_by: 'Admin',
+    updated_by: 'Admin'
+  },
+];
+
+const houses = [
+  {
+    "block_id": "d3d2f284-49f6-4c70-bb39-6fcbc2bce2d8",
+    "house_number": "10",
+    "street_id": "ced715b7-61f2-41b8-b799-8fea8a3028fa",
+    "rt_id": "a5dadb26-933c-4563-b204-64eb34e74a3d"
+  },
+  {
+    "block_id": "d3d2f284-49f6-4c70-bb39-6fcbc2bce2d8",
+    "house_number": "11",
+    "street_id": "ced715b7-61f2-41b8-b799-8fea8a3028fa",
+    "rt_id": "a5dadb26-933c-4563-b204-64eb34e74a3d"
+  },
+  {
+    "block_id": "d3d2f284-49f6-4c70-bb39-6fcbc2bce2d8",
+    "house_number": "12",
+    "street_id": "ced715b7-61f2-41b8-b799-8fea8a3028fa",
+    "rt_id": "a5dadb26-933c-4563-b204-64eb34e74a3d"
+  },
+  {
+    "block_id": "d3d2f284-49f6-4c70-bb39-6fcbc2bce2d8",
+    "house_number": "12A",
+    "street_id": "ced715b7-61f2-41b8-b799-8fea8a3028fa",
+    "rt_id": "a5dadb26-933c-4563-b204-64eb34e74a3d"
+  },
+  {
+    "block_id": "d3d2f284-49f6-4c70-bb39-6fcbc2bce2d8",
+    "house_number": "14",
+    "street_id": "ced715b7-61f2-41b8-b799-8fea8a3028fa",
+    "rt_id": "a5dadb26-933c-4563-b204-64eb34e74a3d"
+  },
+  {
+    "block_id": "d3d2f284-49f6-4c70-bb39-6fcbc2bce2d8",
+    "house_number": "8",
+    "street_id": "ced715b7-61f2-41b8-b799-8fea8a3028fa",
+    "rt_id": "a5dadb26-933c-4563-b204-64eb34e74a3d"
+  },
+  {
+    "block_id": "d3d2f284-49f6-4c70-bb39-6fcbc2bce2d8",
+    "house_number": "9",
+    "street_id": "ced715b7-61f2-41b8-b799-8fea8a3028fa",
+    "rt_id": "a5dadb26-933c-4563-b204-64eb34e74a3d"
+  }
+];
+
+export { users, customers, invoices, revenue, rukunTetangga, streets, blocks, educations, houses };

@@ -1,28 +1,61 @@
 // import bcrypt from 'bcrypt';
 import { db } from '@vercel/postgres';
 // import { invoices, customers, revenue, users } from '../lib/placeholder-data';
+import { rukunTetangga, streets, blocks, educations, houses } from '../lib/placeholder-data';
 
 const client = await db.connect();
 
 async function seedHouses() {
-  await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
-  await client.sql`
-    CREATE TABLE IF NOT EXISTS houses (
-      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-      house_number VARCHAR(10) NOT NULL,
-      house_owner VARCHAR(50) NULL,
-      house_tenants VARCHAR(50) NULL,
-      occupied BOOLEAN NOT NULL,
-      block_id UUID NOT NULL,
-      street_id UUID NOT NULL,
-      rt_id UUID NOT NULL,
-      rw_id UUID NOT NULL,
-      created_at TIMESTAMP DEFAULT NOW(),
-      created_by VARCHAR(50) NOT NULL,
-      updated_at TIMESTAMP DEFAULT NOW(),
-      updated_by VARCHAR(50) NOT NULL
-    );
-  `;
+  // await client.sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  // await client.sql`
+  //   CREATE TABLE IF NOT EXISTS houses (
+  //     id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+  //     house_number VARCHAR(10) NOT NULL,
+  //     house_owner VARCHAR(50) NULL,
+  //     house_tenants VARCHAR(50) NULL,
+  //     occupied BOOLEAN NOT NULL,
+  //     block_id UUID NULL,
+  //     street_id UUID NULL,
+  //     rt_id UUID NOT NULL,
+  //     created_at TIMESTAMP DEFAULT NOW(),
+  //     created_by VARCHAR(50) NOT NULL,
+  //     updated_at TIMESTAMP DEFAULT NOW(),
+  //     updated_by VARCHAR(50) NOT NULL
+  //   );
+  // `;
+
+  const byAdmin = 'Admin';
+  const isOccupied = true;
+
+  const insertedHouses = await Promise.all(
+    houses.map(
+      (house) => client.sql`
+        INSERT INTO houses 
+          (
+            house_number, 
+            occupied,
+            block_id,
+            street_id,
+            rt_id, 
+            created_by, 
+            updated_by
+          )
+        VALUES 
+          (
+            ${house.house_number}, 
+            ${isOccupied},
+            ${house.block_id},
+            ${house.street_id},
+            ${house.rt_id}, 
+            ${byAdmin}, 
+            ${byAdmin}
+          )
+        ON CONFLICT (id) DO NOTHING;
+      `,
+    ),
+  );
+
+  return insertedHouses;
 }
 
 async function seedBlocks() {
@@ -37,6 +70,18 @@ async function seedBlocks() {
       updated_by VARCHAR(50) NOT NULL
     );
   `;
+
+  const insertedBlocks = await Promise.all(
+    blocks.map(
+      (block) => client.sql`
+        INSERT INTO blocks (block_name, created_by, updated_by)
+        VALUES (${block.block_name}, ${block.created_by}, ${block.updated_by})
+        ON CONFLICT (id) DO NOTHING;
+      `,
+    ),
+  );
+
+  return insertedBlocks;
 }
 
 async function seedStreets() {
@@ -51,6 +96,18 @@ async function seedStreets() {
       updated_by VARCHAR(50) NOT NULL
     );
   `;
+
+  const insertedStreets = await Promise.all(
+    streets.map(
+      (street) => client.sql`
+        INSERT INTO streets (street_name, created_by, updated_by)
+        VALUES (${street.street_name}, ${street.created_by}, ${street.updated_by})
+        ON CONFLICT (id) DO NOTHING;
+      `,
+    ),
+  );
+
+  return insertedStreets;
 }
 
 async function seedRukunTetangga() {
@@ -58,13 +115,25 @@ async function seedRukunTetangga() {
   await client.sql`
     CREATE TABLE IF NOT EXISTS rukun_tetangga (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
-      rt_number VARCHAR(2) NOT NULL,
+      rt_number VARCHAR(5) NOT NULL,
       created_at TIMESTAMP DEFAULT NOW(),
       created_by VARCHAR(50) NOT NULL,
       updated_at TIMESTAMP DEFAULT NOW(),
       updated_by VARCHAR(50) NOT NULL
     );
   `;
+
+  const insertedRukunTetangga = await Promise.all(
+    rukunTetangga.map(
+      (rt) => client.sql`
+        INSERT INTO rukun_tetangga (rt_number, created_by, updated_by)
+        VALUES (${rt.rt_number}, ${rt.created_by}, ${rt.updated_by})
+        ON CONFLICT (id) DO NOTHING;
+      `,
+    ),
+  );
+
+  return insertedRukunTetangga;
 }
 
 async function seedGender() {
@@ -93,6 +162,18 @@ async function seedEducation() {
       updated_by VARCHAR(50) NOT NULL
     );
   `;
+
+  const insertedEducation = await Promise.all(
+    educations.map(
+      (education) => client.sql`
+        INSERT INTO rukun_tetangga (rt_number, created_by, updated_by)
+        VALUES (${education.education_grade}, ${education.created_by}, ${education.updated_by})
+        ON CONFLICT (id) DO NOTHING;
+      `,
+    ),
+  );
+
+  return insertedEducation;
 }
 
 async function seedKB() {
@@ -246,21 +327,26 @@ async function seedResidents() {
 // }
 
 export async function GET() {
-  return Response.json({
-    message:
-      'Uncomment this file and remove this line. You can delete this file when you are finished.',
-  });
-  // try {
-  //   await client.sql`BEGIN`;
+  // return Response.json({
+  //   message:
+  //     'Uncomment this file and remove this line. You can delete this file when you are finished.',
+  // });
+  try {
+    await client.sql`BEGIN`;
   //   await seedUsers();
   //   await seedCustomers();
   //   await seedInvoices();
   //   await seedRevenue();
-  //   await client.sql`COMMIT`;
+  //   KV2
+  //   await seedRukunTetangga();
+  //   await seedStreets();
+  //   await seedBlocks();
+    await seedHouses();
+    await client.sql`COMMIT`;
 
-  //   return Response.json({ message: 'Database seeded successfully' });
-  // } catch (error) {
-  //   await client.sql`ROLLBACK`;
-  //   return Response.json({ error }, { status: 500 });
-  // }
+    return Response.json({ message: 'Database seeded successfully' });
+  } catch (error) {
+    await client.sql`ROLLBACK`;
+    return Response.json({ error }, { status: 500 });
+  }
 }
