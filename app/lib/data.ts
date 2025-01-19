@@ -6,6 +6,11 @@ import {
   InvoicesTable,
   LatestInvoiceRaw,
   Revenue,
+  StreetField,
+  BlockField,
+  RTField,
+  HousesTable,
+  HouseForm,
 } from './definitions';
 import { formatCurrency } from './utils';
 
@@ -213,5 +218,144 @@ export async function fetchFilteredCustomers(query: string) {
   } catch (err) {
     console.error('Database Error:', err);
     throw new Error('Failed to fetch customer table.');
+  }
+}
+
+// KV2
+export async function fetchStreets() {
+  try {
+    const data = await sql<StreetField>`
+      SELECT
+        id,
+        street_name
+      FROM streets
+      ORDER BY street_name ASC
+    `;
+
+    const streets = data.rows;
+    return streets;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all streets.');
+  }
+}
+
+export async function fetchBlocks() {
+  try {
+    const data = await sql<BlockField>`
+      SELECT
+        id,
+        block_name
+      FROM blocks
+      ORDER BY block_name ASC
+    `;
+
+    const blocks = data.rows;
+    return blocks;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all blocks.');
+  }
+}
+
+export async function fetchRT() {
+  try {
+    const data = await sql<RTField>`
+      SELECT
+        id,
+        rt_number
+      FROM rukun_tetangga
+      ORDER BY rt_number ASC
+    `;
+
+    const rtNumber = data.rows;
+    return rtNumber;
+  } catch (err) {
+    console.error('Database Error:', err);
+    throw new Error('Failed to fetch all blocks.');
+  }
+}
+
+export async function fetchFilteredHouses( query: string, currentPage: number ) {
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const houses = await sql<HousesTable>`
+      SELECT
+        houses.id,
+        houses.house_number,
+        houses.house_owner,
+        houses.occupied,
+        blocks.block_name,
+        streets.street_name,
+        rukun_tetangga.rt_number
+      FROM houses
+      JOIN blocks ON houses.block_id = blocks.id
+      JOIN streets ON houses.street_id = streets.id
+      JOIN rukun_tetangga ON houses.rt_id = rukun_tetangga.id
+      WHERE
+        houses.house_number ILIKE ${`%${query}%`} OR
+        blocks.block_name ILIKE ${`%${query}%`} OR
+        streets.street_name ILIKE ${`%${query}%`} OR
+        houses.house_owner ILIKE ${`%${query}%`} OR
+        houses.occupied::text ILIKE ${`%${query}%`} OR
+        CONCAT(blocks.block_name, houses.house_number) ILIKE ${`%${query}%`}
+      ORDER BY blocks.block_name, houses.house_number ASC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+
+    return houses.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch houses');
+  }
+}
+
+export async function fetchHousesPages(query: string) {
+  try {
+    const count = await sql`
+      SELECT COUNT(*)
+      FROM houses
+      JOIN blocks ON houses.block_id = blocks.id
+      JOIN streets ON houses.street_id = streets.id
+      JOIN rukun_tetangga ON houses.rt_id = rukun_tetangga.id
+      WHERE
+        houses.house_number ILIKE ${`%${query}%`} OR
+        blocks.block_name ILIKE ${`%${query}%`} OR
+        streets.street_name ILIKE ${`%${query}%`} OR
+        houses.house_owner ILIKE ${`%${query}%`} OR
+        houses.occupied::text ILIKE ${`%${query}%`} OR
+        CONCAT(blocks.block_name, houses.house_number) ILIKE ${`%${query}%`}
+    `;
+
+    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of houses.');
+  }
+}
+
+export async function fetchHouseById(id: string) {
+  try {
+    const house = await sql<HouseForm>`
+      SELECT
+        id,
+        house_number,
+        house_owner,
+        house_tenants,
+        occupied,
+        block_id,
+        street_id,
+        rt_id
+      FROM houses
+      WHERE id = ${id};
+    `;
+
+    return house.rows[0];
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch invoice.');
   }
 }

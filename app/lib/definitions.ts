@@ -86,3 +86,40 @@ export type InvoiceForm = {
   amount: number;
   status: 'pending' | 'paid';
 };
+
+// KV2
+export type StreetField = {
+  id: string;
+  street_name: string;
+};
+
+export type BlockField = {
+  id: string;
+  block_name: string;
+};
+
+export type RTField = {
+  id: string;
+  rt_number: string;
+};
+
+export type HouseForm = {
+  id: string;
+  house_number: string;
+  house_owner: string;
+  house_tenants: string;
+  occupied: boolean;
+  block_id: string;
+  street_id: string;
+  rt_id: string;
+};
+
+export type HousesTable = {
+  id: string;
+  house_number: string;
+  house_owner: string;
+  occupied: boolean;
+  block_name: string;
+  street_name: string;
+  rt_number: string;
+};
