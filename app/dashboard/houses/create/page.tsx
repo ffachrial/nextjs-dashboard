@@ -1,8 +1,6 @@
-// Import from invoices components. If success, try create for house
-// components.
-// Next step: Try to make Breadcrumbs general components and put in
-// /app/ui/general/breadcrumbs for example
-import Breadcrumbs from "@/app/ui/invoices/breadcrumbs";
+import Form from "@/app/ui/houses/create-form";
+import Breadcrumbs from "@/app/ui/general/breadcrumbs";
+import { fetchStreets, fetchBlocks, fetchRT } from "@/app/lib/data";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -10,18 +8,23 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-    return (
-        <main>
-            <Breadcrumbs
-                breadcrumbs={[
-                    { label: 'Houses', href: '/dashboard/houses'},
-                    {
-                        label: 'Create House',
-                        href: '/dashboard/houses/create',
-                        active: true
-                    },
-                ]}
-            />
-        </main>
-    );
+  const streets = await fetchStreets();
+  const blocks = await fetchBlocks();
+  const rt = await fetchRT();
+
+  return (
+    <main>
+      <Breadcrumbs
+        breadcrumbs={[
+          { label: 'Houses', href: '/dashboard/houses'},
+          {
+            label: 'Create House',
+            href: '/dashboard/houses/create',
+            active: true
+          },
+        ]}
+      />
+      <Form streets={streets} blocks={blocks} rt={rt} />
+    </main>
+  );
 }
