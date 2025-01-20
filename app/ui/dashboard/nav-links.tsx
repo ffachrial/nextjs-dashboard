@@ -21,6 +21,7 @@ const links = [
   },
   { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
   { name: 'Houses', href: '/dashboard/houses', icon: HomeModernIcon },
+  { name: 'USPRO dan Lansia', href: '/dashboard/usprolansia', icon: UserGroupIcon },
 ];
 
 export default function NavLinks() {
