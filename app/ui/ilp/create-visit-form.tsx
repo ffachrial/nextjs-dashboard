@@ -42,9 +42,9 @@ export default function Form({ id }: { id: string}) {
         setError('Failed to submit data. Please try again.');
       }
 
-    } catch (err: any) {
+    } catch (err: unknown) {
       setError('An error occurred. Please try again later.');
-      console.error("Error submitting data:", err);
+      console.error("Error submitting data:", err instanceof Error ? err.message : err);
     } finally {
       setIsLoading(false);
     }
