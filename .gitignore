@@ -34,3 +34,18 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+#prisma
+generated/
+
+#aider
+/.aider.tags.cache.v3
+.aider.chat.history.md
+.aider.input.history
+
+#python
+/bin
+/include
+/lib
+pyvenv.cfg
+.aider*
