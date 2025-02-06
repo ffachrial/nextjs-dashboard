@@ -1,25 +1,24 @@
-// lib/prisma.ts
-
 import { PrismaClient as PrismaClientPostgres } from '@/prisma/postgres/generated/postgres';
 import { PrismaClient as PrismaClientMongo } from '@/prisma/mongodb/generated/mongodb';
-// import { PrismaClient as PrismaClientSupabase } from '@/prisma/supabase/generated/supabase';
 
-declare global {
-  var prismaPostgres: PrismaClientPostgres | undefined
-  var prismaMongo: PrismaClientMongo | undefined
-  // var prismaSupabase: PrismaClientSupabase | undefined
+class PrismaClientManager {
+  private static prismaPostgresInstance: PrismaClientPostgres;
+  private static prismaMongoInstance: PrismaClientMongo;
+
+  static getPrismaPostgres(): PrismaClientPostgres {
+    if (!this.prismaPostgresInstance) {
+      this.prismaPostgresInstance = new PrismaClientPostgres();
+    }
+    return this.prismaPostgresInstance;
+  }
+
+  static getPrismaMongo(): PrismaClientMongo {
+    if (!this.prismaMongoInstance) {
+      this.prismaMongoInstance = new PrismaClientMongo();
+    }
+    return this.prismaMongoInstance;
+  }
 }
 
-export const prismaPostgres = global.prismaPostgres || new PrismaClientPostgres(
-  // { log: ['query', 'error', 'warn'] }  // Add logging for debugging
-)
-
-export const prismaMongo = global.prismaMongo || new PrismaClientMongo()
-
-// export const prismaSupabase = global.prismaSupabase || new PrismaClientSupabase()
-
-if (process.env.NODE_ENV !== 'production') {
-  global.prismaPostgres = prismaPostgres
-  global.prismaMongo = prismaMongo
-  // global.prismaSupabase = prismaSupabase
-}
+export const prismaPostgres = PrismaClientManager.getPrismaPostgres();
+export const prismaMongo = PrismaClientManager.getPrismaMongo();

@@ -1,12 +1,12 @@
-import CardWrapper from '@/app/ui/dashboard/cards';
+// import CardWrapper from '@/app/ui/dashboard/cards';
 import { CardIMT, CardTD, CardGD, CardLP } from '@/app/ui/dashboard/cards-ilp';
-import RevenueChart from '@/app/ui/dashboard/revenue-chart';
-import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
+// import RevenueChart from '@/app/ui/dashboard/revenue-chart';
+// import LatestInvoices from '@/app/ui/dashboard/latest-invoices';
 import { lusitana } from '@/app/ui/fonts';
 import { Suspense } from 'react';
 import { 
-  RevenueChartSkeleton, 
-  LatestInvoicesSkeleton,
+  // RevenueChartSkeleton, 
+  // LatestInvoicesSkeleton,
   CardsSkeleton, 
 } from '@/app/ui/skeletons';
  

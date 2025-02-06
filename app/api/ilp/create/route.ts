@@ -12,7 +12,7 @@ export async function POST( request: NextRequest) {
       parsedVisitDate.getDate()
     ));
 
-    const visitHistory = await prismaMongo.medicalRecord.upsert({
+    await prismaMongo.medicalRecord.upsert({
       where: { residentId: residentId },
       update: {
         visitHistory: {

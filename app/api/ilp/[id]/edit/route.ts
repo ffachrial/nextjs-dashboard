@@ -33,7 +33,7 @@ export async function PUT( request: NextRequest ) {
       parsedVisitDate.getDate()
     ))
     
-    const result = await prismaMongo.visitHistory.update({
+    await prismaMongo.visitHistory.update({
       where: {
         id: visitHistory.visitId 
       },

@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 import { prismaMongo } from "@/app/lib/prisma"
 
 export async function GET() {

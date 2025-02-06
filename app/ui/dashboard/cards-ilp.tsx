@@ -39,7 +39,8 @@ export function CardIMT() {
       try {
         const response = await axios.get("http://localhost:3000/api/dashboard/imt")
         setData(response.data)
-      } catch (err) {
+      } catch (error) {
+        console.log(error)
         setError("Failed to load data")
       } finally {
         setLoading(false)
@@ -86,7 +87,8 @@ export function CardTD() {
       try {
         const response = await axios.get("http://localhost:3000/api/dashboard/td")
         setData(response.data)
-      } catch (err) {
+      } catch (error) {
+        console.log(error)
         setError("Failed to load data")
       } finally {
         setLoading(false)
@@ -133,7 +135,8 @@ export function CardGD() {
       try {
         const response = await axios.get("http://localhost:3000/api/dashboard/gd")
         setData(response.data)
-      } catch (err) {
+      } catch (error) {
+        console.log(error)
         setError("Failed to load data")
       } finally {
         setLoading(false)
@@ -180,7 +183,8 @@ export function CardLP() {
         try {
           const response = await axios.get("http://localhost:3000/api/dashboard/lp")
           setData(response.data)
-        } catch (err) {
+        } catch (error) {
+          console.log(error)
           setError("Failed to load data")
         } finally {
           setLoading(false)

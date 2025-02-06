@@ -6,7 +6,7 @@ import { StreetField, BlockField, RTField } from '@/app/lib/definitions';
 import { createHouse, HouseState } from '@/app/lib/actions';
 import { Button } from '@/app/ui/button';
 import { 
-    UserIcon, 
+    // UserIcon, 
     HomeModernIcon, 
     KeyIcon, 
     UsersIcon,

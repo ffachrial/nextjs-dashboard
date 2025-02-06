@@ -49,3 +49,7 @@ generated/
 /lib
 pyvenv.cfg
 .aider*
+
+#tools
+/app/query
+/app/seed

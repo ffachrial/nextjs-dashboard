@@ -195,7 +195,7 @@ export async function createHouse(prevState: HouseState, formData: FormData) {
         )
     `;
   } catch (error) {
-    return { message: 'Database Error: Failed to Create House.' };
+    return { message: 'Database Error: Failed to Create House.', error };
   }
 
   revalidatePath('/dashboard/houses');
@@ -248,7 +248,7 @@ export async function updateHouse(id: string, prevState: HouseState, formData: F
       WHERE id = ${id}
     `;
   } catch (error) {
-    return { message: 'Database Error: Failed to Update House.' };
+    return { message: 'Database Error: Failed to Update House.', error };
   }
 
   revalidatePath('/dashboard/houses');

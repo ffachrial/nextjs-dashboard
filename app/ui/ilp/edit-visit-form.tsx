@@ -117,13 +117,13 @@ export default function Form() {
     }
   }
 
-  // Function to convert display value to API value
-  const convertToAPIValue = (value: string): number => {
-    // Replace comma with dot first for consistency
-    const normalizedValue = value.replace(',', '.');
-    // Remove decimal point and convert to number
-    return parseInt(normalizedValue.replace('.', ''));
-  };
+  // // Function to convert display value to API value
+  // const convertToAPIValue = (value: string): number => {
+  //   // Replace comma with dot first for consistency
+  //   const normalizedValue = value.replace(',', '.');
+  //   // Remove decimal point and convert to number
+  //   return parseInt(normalizedValue.replace('.', ''));
+  // };
 
   // Function to format number input (for display only)
   const handleNumberInput = (e: React.ChangeEvent<HTMLInputElement>) => {
