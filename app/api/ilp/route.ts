@@ -12,7 +12,7 @@ export async function GET(request: NextRequest) {
     const offset = (page - 1) * limit;
     
     const residents = await prismaPostgres.resident.findMany({
-      where: {
+      where: { residentStatus: true,
         OR: [
           { residentName: { contains: query, mode: 'insensitive' } },
           { houses: {
