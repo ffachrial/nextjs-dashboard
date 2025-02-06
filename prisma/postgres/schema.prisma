@@ -1,0 +1,145 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/postgres"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model Resident {
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  residentName    String    @map("resident_name") @db.VarChar(255)
+  residentDob     DateTime? @map("resident_dob") @db.Date
+  nikNumber       String?   @map("nik_number") @db.VarChar(50)
+  kkNumber        String?   @map("kk_number") @db.VarChar(50)
+  akteNumber      String?   @map("akte_number") @db.VarChar(50)
+  bpjsNumber      String?   @map("bpjs_number") @db.VarChar(50)
+  mobile          String?   @db.VarChar(50)
+  residentStatus  Boolean   @map("resident_status")
+  shdkId          String?   @map("shdk_id") @db.Uuid
+  gender          String?   @map("gender") @db.VarChar(25)
+  houseId         String?   @map("house_id") @db.Uuid
+  educationId     String?   @map("education_id") @db.Uuid
+  medicalRecordId String?  @map("medical_record_id") @db.Uuid
+  createdAt       DateTime? @default(now()) @map("created_at") @db.Timestamp(6)
+  createdBy       String    @map("created_by") @db.VarChar(50)
+  updatedAt       DateTime? @default(now()) @map("updated_at") @db.Timestamp(6)
+  updatedBy       String    @map("updated_by") @db.VarChar(50)
+
+  shdk           Shdk?          @relation(fields: [shdkId], references: [id])
+  houses         House?         @relation(fields: [houseId], references: [id])
+  education      educations?    @relation(fields: [educationId], references: [id])
+  medicalRecord  MedicalRecord? @relation(fields: [medicalRecordId], references: [id])
+  @@map("residents")
+}
+
+model MedicalRecord {
+  id                      String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  residentId              String    @map("resident_id") @db.Uuid
+  lastVisitDate           DateTime? @map("last_visit_date") @db.Timestamp(6)
+  currentBB               Int?      @map("current_bb")
+  currentTB               Int?      @map("current_tb")
+  currentIMT              String?   @map("current_imt") @db.VarChar(50)
+  currentLP               Int?      @map("current_lp")
+  currentLiLA             Int?      @map("current_lila")
+  bloodPressureSistole    Int?      @map("blood_pressure_sistole")
+  bloodPressureDiastole   Int?      @map("blood_pressure_diastole")
+  bloodPressureResult     String?   @map("blood_pressure_result") @db.VarChar(50)
+  bloodSugar              Int?      @map("blood_sugar")
+  bloodSugarResult        String?   @map("blood_sugar_result") @db.VarChar(50)
+  cholesterol             Int?      @map("cholesterol")
+  cholesterolResult       String?   @map("cholesterol_result") @db.VarChar(50)
+  rightEyeTest            String?   @map("right_eye_test") @db.VarChar(50)
+  leftEyeTest             String?   @map("left_eye_test") @db.VarChar(50)
+  rightEarTest            String?   @map("right_ear_test") @db.VarChar(50)
+  leftEarTest             String?   @map("left_ear_test") @db.VarChar(50)
+  kbId                    String?   @map("kb_id") @db.Uuid
+  created_at              DateTime? @default(now()) @db.Timestamp(6)
+  created_by              String    @db.VarChar(50)
+  updated_at              DateTime? @default(now()) @db.Timestamp(6)
+  updated_by              String    @db.VarChar(50)
+  residents               Resident[]
+  @@map("medical_records")
+}
+
+model Shdk {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  shdkRelative String    @map("shdk_relative") @db.VarChar(50)
+  created_at   DateTime? @default(now()) @db.Timestamp(6)
+  created_by   String    @db.VarChar(50)
+  updated_at   DateTime? @default(now()) @db.Timestamp(6)
+  updated_by   String    @db.VarChar(50)
+  residents    Resident[]
+  @@map("shdk")
+}
+
+model House {
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  house_number  String    @db.VarChar(10)
+  house_owner   String?   @db.VarChar(50)
+  house_tenants String?   @db.VarChar(50)
+  occupied      Boolean
+  block_id      String?   @db.Uuid
+  street_id     String?   @db.Uuid
+  rt_id         String    @db.Uuid
+  created_at    DateTime? @default(now()) @db.Timestamp(6)
+  created_by    String    @db.VarChar(50)
+  updated_at    DateTime? @default(now()) @db.Timestamp(6)
+  updated_by    String    @db.VarChar(50)
+
+  blocks        blocks?     @relation(fields: [block_id], references: [id])
+  streets       streets?    @relation(fields: [street_id], references: [id])
+  rukun_tetangga rukun_tetangga? @relation(fields: [rt_id], references: [id])
+
+  residents     Resident[]
+  @@map("houses")
+}
+
+model blocks {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  block_name String    @db.VarChar(10)
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  created_by String    @db.VarChar(50)
+  updated_at DateTime? @default(now()) @db.Timestamp(6)
+  updated_by String    @db.VarChar(50)
+  houses     House[]
+}
+
+model educations {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  education  String    @db.VarChar(50)
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  created_by String    @db.VarChar(50)
+  updated_at DateTime? @default(now()) @db.Timestamp(6)
+  updated_by String    @db.VarChar(50)
+  residents  Resident[]
+}
+
+model rukun_tetangga {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  rt_number  String    @db.VarChar(5)
+  created_at DateTime? @default(now()) @db.Timestamp(6)
+  created_by String    @db.VarChar(50)
+  updated_at DateTime? @default(now()) @db.Timestamp(6)
+  updated_by String    @db.VarChar(50)
+  houses     House[]
+}
+
+model streets {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  street_name String    @db.VarChar(50)
+  created_at  DateTime? @default(now()) @db.Timestamp(6)
+  created_by  String    @db.VarChar(50)
+  updated_at  DateTime? @default(now()) @db.Timestamp(6)
+  updated_by  String    @db.VarChar(50)
+  houses      House[]
+}
+
+model users {
+  id       String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name     String @db.VarChar(255)
+  email    String @unique
+  password String
+}

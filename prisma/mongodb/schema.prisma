@@ -1,0 +1,133 @@
+// prisma/mongodb/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/mongodb"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URL")
+}
+
+model MedicalRecord {
+  id              String          @id @default(auto()) @map("_id") @db.ObjectId
+  residentId      String          @unique
+  residentMRId    String?
+  residentGender  String?
+  visitHistory    VisitHistory[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@map("medical_records")
+}
+
+model VisitHistory {
+  id                     String             @id @default(auto()) @map("_id") @db.ObjectId
+  visitDate              DateTime
+  usiaDewasaDanLansia    UsiaDewasaLansia?
+  usiaLansia             UsiaLansia?
+  medicalRecord          MedicalRecord      @relation(fields: [medicalRecordId], references: [id])
+  medicalRecordId        String             @db.ObjectId
+  createdAt              DateTime           @default(now())
+  updatedAt              DateTime           @updatedAt
+}
+
+type UsiaDewasaLansia {
+  pengukuran             Pengukuran?
+  questionerPuma         QuestionerPuma?
+  wawancaraFaktorRisikoPM WawancaraFaktorRisiko?
+  menggunakanKontrasepsi String?
+  edukasi                String?
+  rujukPuskesmas         String?
+}
+
+type UsiaLansia {
+  aks                    AKS
+  skilas                 Skilas
+}
+
+type Pengukuran {
+  beratBadan            Float?
+  tinggiBadan           Float?
+  IMT                   String?
+  lingkarPerut          Float?
+  lingkarLenganAtas     Float?
+  tekananDarah          TekananDarah?
+  gulaDarah             GulaDarah?
+  testHitungJariTangan  TestMata?
+  testBerbisik          TestTelinga?
+}
+
+type TekananDarah {
+  sistole   Int?
+  diastole  Int?
+  hasil     String?
+}
+
+type GulaDarah {
+  kadarGulaDarahSewaktu Int?
+  hasil                 String?
+}
+
+type TestMata {
+  mataKanan String?
+  mataKiri  String?
+}
+
+type TestTelinga {
+  telingaKanan String?
+  telingaKiri  String?
+}
+
+type QuestionerPuma {
+  jenisKelamin Int?
+  usia         Int?
+  merokok      Int?
+  question1    Int?
+  question2    Int?
+  question3    Int?
+  question4    Int?
+  pumaScore    Int?
+  action       String?
+}
+
+type WawancaraFaktorRisiko {
+  question1 String?
+  question2 String?
+  question3 String?
+  question4 String?
+}
+
+type AKS {
+  question1       String?
+  question2       String?
+  question3       String?
+  question4       String?
+  question5       String?
+  question6       String?
+  question7       String?
+  question8       String?
+  question9       String?
+  question10      String?
+  result          String?
+  edukasi         String?
+  rujukPuskesmas  String?
+}
+
+type Skilas {
+  orientasiWaktuTempat  String?
+  mengulangKetigaKata   String?
+  berdiriDariKursi      String?
+  pakaianJadiLonggar    String?
+  hilangNafsuMakan      String?
+  lilaKurang            String?
+  masalahPadaMata       String?
+  tesMelihat            String?
+  tesBisik              String?
+  sedihTertekan         String?
+  sedikitMinat          String?
+  imunisasiCovid        String?
+  edukasi               String?
+  rujukPuskesmas        String?
+}
