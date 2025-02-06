@@ -1,6 +1,10 @@
 {
   "private": true,
   "scripts": {
+    "generate:mongodb": "npx prisma generate --schema ./prisma/mongodb/schema.prisma",
+    "generate:postgres": "npx prisma generate --schema ./prisma/postgres/schema.prisma",
+    "postinstall": "npm run generate:mongodb && npm run generate:postgres",
+
     "build": "next build",
     "dev": "next dev --turbopack",
     "start": "next start",
