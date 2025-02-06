@@ -2,12 +2,12 @@
 
 import { PrismaClient as PrismaClientPostgres } from '@/prisma/postgres/generated/postgres';
 import { PrismaClient as PrismaClientMongo } from '@/prisma/mongodb/generated/mongodb';
-import { PrismaClient as PrismaClientSupabase } from '@/prisma/supabase/generated/supabase';
+// import { PrismaClient as PrismaClientSupabase } from '@/prisma/supabase/generated/supabase';
 
 declare global {
   var prismaPostgres: PrismaClientPostgres | undefined
   var prismaMongo: PrismaClientMongo | undefined
-  var prismaSupabase: PrismaClientSupabase | undefined
+  // var prismaSupabase: PrismaClientSupabase | undefined
 }
 
 export const prismaPostgres = global.prismaPostgres || new PrismaClientPostgres(
@@ -16,10 +16,10 @@ export const prismaPostgres = global.prismaPostgres || new PrismaClientPostgres(
 
 export const prismaMongo = global.prismaMongo || new PrismaClientMongo()
 
-export const prismaSupabase = global.prismaSupabase || new PrismaClientSupabase()
+// export const prismaSupabase = global.prismaSupabase || new PrismaClientSupabase()
 
 if (process.env.NODE_ENV !== 'production') {
   global.prismaPostgres = prismaPostgres
   global.prismaMongo = prismaMongo
-  global.prismaSupabase = prismaSupabase
+  // global.prismaSupabase = prismaSupabase
 }
