@@ -67,3 +67,30 @@ export const generatePagination = (currentPage: number, totalPages: number) => {
     totalPages,
   ];
 };
+
+export const formatDOBtoAge = (dob: string, includeDays: boolean = true) => {
+  // Calculate age for display
+  const birthDate = new Date(dob);
+  const today = new Date();
+
+  let years = today.getFullYear() - birthDate.getFullYear();
+  let months = today.getMonth() - birthDate.getMonth();
+  let days = today.getDate() - birthDate.getDate();
+  
+  if (days < 0) {
+    months--;
+    const lastDayOfMonth = new Date(today.getFullYear(), today.getMonth(), 0).getDate();
+    days += lastDayOfMonth;
+  }
+
+  if (months < 0) {
+    years--;
+    months += 12;
+  }
+
+  if (includeDays) {
+    return `${years} Tahun ${months} Bulan ${days} Hari`;
+  } else {
+    return `${years} Tahun ${months} Bulan`;
+  }
+}
