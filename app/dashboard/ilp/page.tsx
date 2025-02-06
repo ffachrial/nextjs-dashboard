@@ -4,7 +4,8 @@ import Pagination from '@/app/ui/general/pagination';
 import { lusitana } from '@/app/ui/fonts';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
+import { api } from '@/app/lib/axios-config';
 
 export const metadata: Metadata = {
   title: 'Integrasi Layanan Primer',
@@ -12,7 +13,7 @@ export const metadata: Metadata = {
 
 async function fetchResidentCount(query: string): Promise<number> {
   try {
-    const response = await axios.get('http:localhost:3000/api/ilp', {
+    const response = await api.get('/ilp', {
         params: { 
           query,
           countOnly: true

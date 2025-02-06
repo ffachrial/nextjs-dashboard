@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react"
 import { ChartPieIcon } from "@heroicons/react/24/outline"
 import { lusitana } from "@/app/ui/fonts"
-import axios from "axios"
+// import axios from "axios"
+import { api } from "@/app/lib/axios-config"
 
 const iconMap = {
   ilp: ChartPieIcon,
@@ -37,7 +38,7 @@ export function CardIMT() {
   useEffect(() => {
     const fetchIMTData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/dashboard/imt")
+        const response = await api.get("/dashboard/imt")
         setData(response.data)
       } catch (error) {
         console.log(error)
@@ -85,7 +86,7 @@ export function CardTD() {
   useEffect(() => {
     const fetchTDData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/dashboard/td")
+        const response = await api.get("/dashboard/td")
         setData(response.data)
       } catch (error) {
         console.log(error)
@@ -133,7 +134,7 @@ export function CardGD() {
   useEffect(() => {
     const fetchGDData = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/api/dashboard/gd")
+        const response = await api.get("/dashboard/gd")
         setData(response.data)
       } catch (error) {
         console.log(error)
@@ -181,7 +182,7 @@ export function CardLP() {
     useEffect(() => {
       const fetchLPData = async () => {
         try {
-          const response = await axios.get("http://localhost:3000/api/dashboard/lp")
+          const response = await api.get("/dashboard/lp")
           setData(response.data)
         } catch (error) {
           console.log(error)

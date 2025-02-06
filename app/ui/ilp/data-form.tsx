@@ -6,7 +6,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useSetAtom } from "jotai";
 import { visitIdAtom, residentGenderAtom } from "@/app/lib/atoms";
-import axios from "axios";
+// import axios from "axios";
+import { api } from "@/app/lib/axios-config";
 
 interface Resident {
   id: string
@@ -47,7 +48,7 @@ export default function DataWarga({ id }: { id: string }) {
     const fetchDataResident = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`http://localhost:3000/api/ilp/${id}`, {})
+        const response = await api.get(`/ilp/${id}`, {})
 
         setResident(response.data);
         setError(null);

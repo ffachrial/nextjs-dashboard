@@ -3,7 +3,8 @@
 import { useState, useEffect } from "react";
 import { MeasureResident } from "./buttons";
 import { formatDOBtoAge } from "@/app/lib/utils";
-import axios from "axios";
+// import axios from "axios";
+import { api } from "@/app/lib/axios-config";
 
 interface Resident {
   id: string
@@ -44,7 +45,7 @@ export default function ILPTable({
     const fetchResidents = async () => {
       try {
         setLoading(true);
-        const response = await axios.get('http://localhost:3000/api/ilp', {
+        const response = await api.get('/ilp', {
           params: { 
             query, 
             page: currentPage, 

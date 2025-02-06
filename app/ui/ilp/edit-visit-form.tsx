@@ -7,7 +7,8 @@ import { useAtom } from "jotai";
 import { visitIdAtom } from "@/app/lib/atoms";
 import { format } from 'date-fns'
 import { Button } from "@/app/ui/button"
-import axios from "axios";
+// import axios from "axios";
+import { api } from "@/app/lib/axios-config";
 
 import { labelDescription } from "@/app/lib/ilp-placeholder-data";
 
@@ -66,7 +67,7 @@ export default function Form() {
     const fetchVisitHistory = async () => {
       try {
         setLoading(true)
-        const response = await axios.get(`http://localhost:3000/api/ilp/${visitId}/edit`, {})
+        const response = await api.get(`/ilp/${visitId}/edit`, {})
         
         setVisitHistory(response.data)
         setError(null)
@@ -106,7 +107,7 @@ export default function Form() {
     }
 
     try {
-      await axios.put(`http://localhost:3000/api/ilp/${visitId}/edit`, formValues);
+      await api.put(`/ilp/${visitId}/edit`, formValues);
       router.push('/dashboard/ilp');
       router.refresh()
     } catch (error) {
